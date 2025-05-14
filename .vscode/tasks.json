@@ -1,0 +1,23 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Renderizar cena POV-Ray no Windows",
+      "type": "shell",
+      "command": "cmd",
+      "args": [
+        "/c",
+        "cd \"C:\\Program Files\\POV-Ray\\v3.7\\bin\" && pvengine.exe /EXIT /RENDER \"${file}\""
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    }
+  ]
+}
