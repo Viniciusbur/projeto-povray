@@ -2,12 +2,12 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Renderizar cena POV-Ray no Windows",
+      "label": "Renderizar sistema solar",
       "type": "shell",
       "command": "cmd",
       "args": [
         "/c",
-        "cd \"C:\\Program Files\\POV-Ray\\v3.7\\bin\" && pvengine.exe /EXIT /RENDER \"${file}\""
+        "cd \"C:\\Program Files\\POV-Ray\\v3.7\\bin\" && pvengine.exe +I\"${workspaceFolder}\\cenas\\sistema-solar.pov\" +O\"${workspaceFolder}\\cenas\\sistema-solar.png\" +FN /EXIT"
       ],
       "group": {
         "kind": "build",
