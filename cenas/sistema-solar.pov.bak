@@ -1,0 +1,114 @@
+#version 3.7;
+global_settings { assumed_gamma 1.0 }
+
+// -----------------------------
+// TAMANHOS VISUAIS ESCALONADOS
+// -----------------------------
+#declare RaioSol = 300;
+#declare RaioMercurio = 15;
+#declare RaioVenus = 30;
+#declare RaioTerra = 50;
+
+// -----------------------------
+// CÂMERA AFASTADA COM ÂNGULO AMPLO
+// -----------------------------
+camera {
+  location <0, 500, -2200>   // Vista superior e afastada
+  look_at  <300, 0, 0>       // Foco entre Sol e planetas
+  angle 45
+}
+
+// -----------------------------
+// FONTE DE LUZ
+// -----------------------------
+light_source {
+  <0, 1000, -1000>
+  color rgb <1, 1, 1>
+}
+
+// -----------------------------
+// FUNDO PRETO
+// -----------------------------
+background { color rgb <0, 0, 0> }
+
+// -----------------------------
+// SOL
+// -----------------------------
+sphere {
+  <0, 0, 0>, RaioSol
+  texture {
+    pigment {
+      image_map {
+        jpeg "sun.jpg"
+        map_type 1
+        interpolate 4
+      }
+    }
+    finish {
+      ambient 1
+      diffuse 0
+      emission rgb <1, 0.6, 0.1>
+    }
+  }
+}
+
+// -----------------------------
+// MERCÚRIO
+// -----------------------------
+sphere {
+  <400, 0, -80>, RaioMercurio
+  texture {
+    pigment {
+      image_map {
+        jpeg "mercury.jpg"
+        map_type 1
+        interpolate 4
+      }
+    }
+    finish {
+      ambient 0.3
+      diffuse 0.8
+      specular 0.2
+    }
+  }
+}
+
+// -----------------------------
+// VÊNUS
+// -----------------------------
+sphere {
+  <520, 0, -100>, RaioVenus
+  texture {
+    pigment {
+      image_map {
+        jpeg "venus.jpg"
+        map_type 1
+        interpolate 4
+      }
+    }
+    finish {
+      ambient 0.3
+      diffuse 0.8
+      specular 0.3
+    }
+  }
+}
+
+sphere {
+  <620, -30, -160>, RaioTerra
+  texture {
+    pigment {
+      image_map {
+        jpeg "earth.jpg"
+        map_type 1
+        interpolate 4
+      }
+    }
+    finish {
+      ambient 0.4
+      diffuse 0.9
+      specular 0.3
+    }
+  }
+  rotate <0, 90, 0> // ? gira 90° para revelar os continentes
+}

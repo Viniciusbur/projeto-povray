@@ -1,0 +1,13 @@
+Input_File_Name = sistema-solar.pov
+Output_File_Name = sistema-solar_frame
+Initial_Frame = 1
+Final_Frame = 450   ; 30 fps × 15 segundos
+Initial_Clock = 0.0
+Final_Clock = 1.0
+Cyclic_Animation = on
+Pause_When_Done = off
+
+Width = 1920
+Height = 1080
+Antialias = On
+Antialias_Threshold = 0.1

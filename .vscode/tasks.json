@@ -2,12 +2,18 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Renderizar sistema solar",
+      "label": "Renderizar sistema solar (POV-Ray)",
       "type": "shell",
-      "command": "cmd",
+      "command": "cmd.exe",
       "args": [
         "/c",
-        "cd \"C:\\Program Files\\POV-Ray\\v3.7\\bin\" && pvengine.exe +I\"${workspaceFolder}\\cenas\\sistema-solar.pov\" +O\"${workspaceFolder}\\cenas\\sistema-solar.png\" +FN /EXIT"
+        "cd \"C:\\Program Files\\POV-Ray\\v3.7\\bin\" && pvengine.exe",
+        "+I\"${workspaceFolder}\\cenas\\sistema-solar.pov\"",
+        "+O\"${workspaceFolder}\\cenas\\sistema-solar.png\"",
+        "+FN",
+        "+W1920",
+        "+H800",
+        "/EXIT"
       ],
       "group": {
         "kind": "build",
