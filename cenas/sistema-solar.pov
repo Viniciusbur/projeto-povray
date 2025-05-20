@@ -1,35 +1,35 @@
 camera {
-  location <0, 400, -1000>
+  location <0, 800, -2400>
   look_at <0, 0, 0>
 }
 
 light_source {
-  <0, 1000, -1500>
+  <0, 1500, -2500>
   color rgb <1, 1, 1>
 }
 
 background { color rgb <0, 0, 0> }
 
-// --- Sol ---
+// --- Sol rotacionando
 sphere {
-  <0, 0, 0>, 20
+  <0, 0, 0>, 60
   texture {
     pigment {
       image_map {
         jpeg "sun.jpg"
         map_type 1
       }
+      rotate <0, clock * 360, 0> // rotação visual do Sol
     }
     finish { ambient 1 diffuse 0 }
   }
 }
 
-// --- Macro com rotação e órbita ---
+// --- Macros ---
 #macro PlanetaOrbitando(raio, tamanho, textura, periodoAnos, rotacaoTipo)
-  #local velocidadeOrbital = 1 / periodoAnos;
+  #local velocidadeOrbital = (1 / periodoAnos) * 4; // 4x mais rápido
   #local anguloOrbital = clock * 360 * velocidadeOrbital;
   #local pos = <cos(radians(anguloOrbital)) * raio, 0, sin(radians(anguloOrbital)) * raio>;
-
   #local rotacao = clock * 360;
 
   sphere {
@@ -53,7 +53,6 @@ sphere {
   }
 #end
 
-// --- Macro para órbitas tracejadas proporcionais ---
 #macro OrbitaTracejada(raio, segmentos)
   #local i = 0;
   #while (i < segmentos)
@@ -74,22 +73,22 @@ sphere {
   #end
 #end
 
-// --- Órbitas (raio, segmentos proporcionais) ---
-OrbitaTracejada(25, 20)    // Mercúrio
-OrbitaTracejada(50, 30)    // Vênus
-OrbitaTracejada(80, 40)    // Terra
-OrbitaTracejada(120, 50)   // Marte
-OrbitaTracejada(180, 60)   // Júpiter
-OrbitaTracejada(250, 70)   // Saturno
-OrbitaTracejada(330, 80)   // Urano
-OrbitaTracejada(420, 90)   // Netuno
+// --- Órbitas expandidas
+OrbitaTracejada(120, 40)   // Mercúrio
+OrbitaTracejada(200, 50)   // Vênus
+OrbitaTracejada(300, 60)   // Terra
+OrbitaTracejada(400, 70)   // Marte
+OrbitaTracejada(600, 80)   // Júpiter
+OrbitaTracejada(800, 90)   // Saturno
+OrbitaTracejada(1000, 100) // Urano
+OrbitaTracejada(1200, 110) // Netuno
 
-// --- Planetas orbitando e girando ---
-PlanetaOrbitando(25, 5, "mercury.jpg", 0.24, "")
-PlanetaOrbitando(50, 6.5, "venus.jpg", 0.62, "retrograda")
-PlanetaOrbitando(80, 7, "earth.jpg", 1.0, "")
-PlanetaOrbitando(120, 6, "mars.jpg", 1.88, "")
-PlanetaOrbitando(180, 12, "jupiter.jpg", 11.86, "")
-PlanetaOrbitando(250, 11, "saturn.jpg", 29.46, "")
-PlanetaOrbitando(330, 9, "uranus.jpg", 84.01, "inclinado")
-PlanetaOrbitando(420, 9, "neptune.jpg", 164.79, "")
+// --- Planetas com velocidades proporcionais e rotações personalizadas
+PlanetaOrbitando(120, 10, "mercury.jpg", 0.24, "")
+PlanetaOrbitando(200, 13, "venus.jpg", 0.62, "retrograda")
+PlanetaOrbitando(300, 14, "earth.jpg", 1.0, "")
+PlanetaOrbitando(400, 12, "mars.jpg", 1.88, "")
+PlanetaOrbitando(600, 20, "jupiter.jpg", 11.86, "")
+PlanetaOrbitando(800, 18, "saturn.jpg", 29.46, "")
+PlanetaOrbitando(1000, 15, "uranus.jpg", 84.01, "inclinado")
+PlanetaOrbitando(1200, 15, "neptune.jpg", 164.79, "")

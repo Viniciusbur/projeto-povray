@@ -1,114 +1,93 @@
-#version 3.7;
-global_settings { assumed_gamma 1.0 }
-
-// -----------------------------
-// TAMANHOS VISUAIS ESCALONADOS
-// -----------------------------
-#declare RaioSol = 300;
-#declare RaioMercurio = 15;
-#declare RaioVenus = 30;
-#declare RaioTerra = 50;
-
-// -----------------------------
-// CÂMERA AFASTADA COM ÂNGULO AMPLO
-// -----------------------------
 camera {
-  location <0, 500, -2200>   // Vista superior e afastada
-  look_at  <300, 0, 0>       // Foco entre Sol e planetas
-  angle 45
+  location <0, 800, -2400>
+  look_at <0, 0, 0>
 }
 
-// -----------------------------
-// FONTE DE LUZ
-// -----------------------------
 light_source {
-  <0, 1000, -1000>
+  <0, 1500, -2500>
   color rgb <1, 1, 1>
 }
 
-// -----------------------------
-// FUNDO PRETO
-// -----------------------------
 background { color rgb <0, 0, 0> }
 
-// -----------------------------
-// SOL
-// -----------------------------
+// --- Sol colossal
 sphere {
-  <0, 0, 0>, RaioSol
+  <0, 0, 0>, 60
   texture {
     pigment {
       image_map {
         jpeg "sun.jpg"
         map_type 1
-        interpolate 4
       }
     }
-    finish {
-      ambient 1
-      diffuse 0
-      emission rgb <1, 0.6, 0.1>
-    }
+    finish { ambient 1 diffuse 0 }
   }
 }
 
-// -----------------------------
-// MERCÚRIO
-// -----------------------------
-sphere {
-  <400, 0, -80>, RaioMercurio
-  texture {
-    pigment {
-      image_map {
-        jpeg "mercury.jpg"
-        map_type 1
-        interpolate 4
-      }
-    }
-    finish {
-      ambient 0.3
-      diffuse 0.8
-      specular 0.2
-    }
-  }
-}
+// --- Macro com rotação + velocidade realista (acelerada)
+#macro PlanetaOrbitando(raio, tamanho, textura, periodoAnos, rotacaoTipo)
+  #local velocidadeOrbital = (1 / periodoAnos) * 4; // 4x mais rápido
+  #local anguloOrbital = clock * 360 * velocidadeOrbital;
+  #local pos = <cos(radians(anguloOrbital)) * raio, 0, sin(radians(anguloOrbital)) * raio>;
+  #local rotacao = clock * 360;
 
-// -----------------------------
-// VÊNUS
-// -----------------------------
-sphere {
-  <520, 0, -100>, RaioVenus
-  texture {
-    pigment {
-      image_map {
-        jpeg "venus.jpg"
-        map_type 1
-        interpolate 4
+  sphere {
+    pos, tamanho
+    texture {
+      pigment {
+        image_map {
+          jpeg textura
+          map_type 1
+        }
+        #if (rotacaoTipo = "retrograda")
+          rotate <0, -rotacao, 0>
+        #elseif (rotacaoTipo = "inclinado")
+          rotate <98, rotacao, 0>
+        #else
+          rotate <0, rotacao, 0>
+        #end
       }
-    }
-    finish {
-      ambient 0.3
-      diffuse 0.8
-      specular 0.3
+      finish { ambient 0.5 diffuse 0.5 }
     }
   }
-}
+#end
 
-sphere {
-  <620, -30, -160>, RaioTerra
-  texture {
-    pigment {
-      image_map {
-        jpeg "earth.jpg"
-        map_type 1
-        interpolate 4
+#macro OrbitaTracejada(raio, segmentos)
+  #local i = 0;
+  #while (i < segmentos)
+    #local ang1 = (i / segmentos) * 360;
+    #local ang2 = ((i + 0.5) / segmentos) * 360;
+
+    cylinder {
+      <cos(radians(ang1)) * raio, 0, sin(radians(ang1)) * raio>,
+      <cos(radians(ang2)) * raio, 0, sin(radians(ang2)) * raio>,
+      0.5
+      texture {
+        pigment { color rgb <0.3, 0.3, 0.3> }
+        finish { ambient 0.3 diffuse 0.2 }
       }
     }
-    finish {
-      ambient 0.4
-      diffuse 0.9
-      specular 0.3
-    }
-  }
-  rotate <0, 90, 0> // ? gira 90° para revelar os continentes
-}
+
+    #local i = i + 1;
+  #end
+#end
+
+// --- Órbitas expandidas
+OrbitaTracejada(120, 40)   // Mercúrio
+OrbitaTracejada(200, 50)   // Vênus
+OrbitaTracejada(300, 60)   // Terra
+OrbitaTracejada(400, 70)   // Marte
+OrbitaTracejada(600, 80)   // Júpiter
+OrbitaTracejada(800, 90)   // Saturno
+OrbitaTracejada(1000, 100) // Urano
+OrbitaTracejada(1200, 110) // Netuno
+
+// --- Planetas com velocidade proporcional e rotação personalizada
+PlanetaOrbitando(120, 10, "mercury.jpg", 0.24, "")
+PlanetaOrbitando(200, 13, "venus.jpg", 0.62, "retrograda")
+PlanetaOrbitando(300, 14, "earth.jpg", 1.0, "")
+PlanetaOrbitando(400, 12, "mars.jpg", 1.88, "")
+PlanetaOrbitando(600, 20, "jupiter.jpg", 11.86, "")
+PlanetaOrbitando(800, 18, "saturn.jpg", 29.46, "")
+PlanetaOrbitando(1000, 15, "uranus.jpg", 84.01, "inclinado")
+PlanetaOrbitando(1200, 15, "neptune.jpg", 164.79, "")
