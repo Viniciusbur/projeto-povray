@@ -1,0 +1,16 @@
+# Arquivos de saída POV-Ray
+*.png
+*.bmp
+*.jpg
+*.gif
+*.tga
+*.mp4
+
+# Backups e temporários
+*.bak
+*.log
+*.ini~
+
+# Pastas comuns de renderização
+render/
+output/
