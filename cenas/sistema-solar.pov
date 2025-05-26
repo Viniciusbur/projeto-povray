@@ -16,7 +16,7 @@ sphere {
   texture {
     pigment {
       image_map {
-        jpeg "sun.jpg"
+        jpeg "../texturas/sun.jpg"
         map_type 1
       }
       rotate <0, clock * 360, 0> // rotação visual do Sol
@@ -84,11 +84,11 @@ OrbitaTracejada(1000, 100) // Urano
 OrbitaTracejada(1200, 110) // Netuno
 
 // --- Planetas com velocidades proporcionais e rotações personalizadas
-PlanetaOrbitando(120, 10, "mercury.jpg", 0.24, "")
-PlanetaOrbitando(200, 13, "venus.jpg", 0.62, "retrograda")
-PlanetaOrbitando(300, 14, "earth.jpg", 1.0, "")
-PlanetaOrbitando(400, 12, "mars.jpg", 1.88, "")
-PlanetaOrbitando(600, 20, "jupiter.jpg", 11.86, "")
-PlanetaOrbitando(800, 18, "saturn.jpg", 29.46, "")
-PlanetaOrbitando(1000, 15, "uranus.jpg", 84.01, "inclinado")
-PlanetaOrbitando(1200, 15, "neptune.jpg", 164.79, "")
+PlanetaOrbitando(120, 10, "../texturas/mercury.jpg", 0.24, "")
+PlanetaOrbitando(200, 13, "../texturas/venus.jpg", 0.62, "retrograda")
+PlanetaOrbitando(300, 14, "../texturas/earth.jpg", 1.0, "")
+PlanetaOrbitando(400, 12, "../texturas/mars.jpg", 1.88, "")
+PlanetaOrbitando(600, 20, "../texturas/jupiter.jpg", 11.86, "")
+PlanetaOrbitando(800, 18, "../texturas/saturn.jpg", 29.46, "")
+PlanetaOrbitando(1000, 15, "../texturas/uranus.jpg", 84.01, "inclinado")
+PlanetaOrbitando(1200, 15, "../texturas/neptune.jpg", 164.79, "")

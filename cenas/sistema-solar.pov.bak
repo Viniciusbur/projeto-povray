@@ -10,7 +10,7 @@ light_source {
 
 background { color rgb <0, 0, 0> }
 
-// --- Sol colossal
+// --- Sol rotacionando
 sphere {
   <0, 0, 0>, 60
   texture {
@@ -19,12 +19,13 @@ sphere {
         jpeg "sun.jpg"
         map_type 1
       }
+      rotate <0, clock * 360, 0> // rotação visual do Sol
     }
     finish { ambient 1 diffuse 0 }
   }
 }
 
-// --- Macro com rotação + velocidade realista (acelerada)
+// --- Macros ---
 #macro PlanetaOrbitando(raio, tamanho, textura, periodoAnos, rotacaoTipo)
   #local velocidadeOrbital = (1 / periodoAnos) * 4; // 4x mais rápido
   #local anguloOrbital = clock * 360 * velocidadeOrbital;
@@ -82,7 +83,7 @@ OrbitaTracejada(800, 90)   // Saturno
 OrbitaTracejada(1000, 100) // Urano
 OrbitaTracejada(1200, 110) // Netuno
 
-// --- Planetas com velocidade proporcional e rotação personalizada
+// --- Planetas com velocidades proporcionais e rotações personalizadas
 PlanetaOrbitando(120, 10, "mercury.jpg", 0.24, "")
 PlanetaOrbitando(200, 13, "venus.jpg", 0.62, "retrograda")
 PlanetaOrbitando(300, 14, "earth.jpg", 1.0, "")
